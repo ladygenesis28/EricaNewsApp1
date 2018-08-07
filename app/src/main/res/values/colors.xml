@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00aff0</color>
+    <color name="colorPrimaryDark">#097fb2</color>
+    <color name="tabtextcolor">#000</color>
+    <color name="tabindicatorcolor">#080000</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="fragmentbackgroundcolor">#fff</color>
+    <color name="fragmentbordercolor">#000</color>
+    <color name="titletext">#000</color>
+
+
+    <!-- Genre Color for Sport -->
+    <color name="genresport">#085ba6</color>
+
+    <!-- Genre Color for Politics -->
+    <color name="genrepolitics">#10CAC9</color>
+
+    <!-- Genre Color for News -->
+    <color name="genreentertainment">#F5A623</color>
+
+</resources>
