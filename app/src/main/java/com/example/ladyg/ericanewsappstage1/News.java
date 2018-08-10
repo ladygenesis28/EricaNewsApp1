@@ -1,35 +1,34 @@
 package com.example.ladyg.ericanewsappstage1;
 
-import android.support.v7.widget.DialogTitle;
-
-import java.util.List;
-
 public class News {
-    private String Title;
+    private String SectionName;
     private String Type;
     private String SectionId;
-    private String Date;
+    private String WebPublicationDate;
+    private String WebTitle;
 
     /**
      * Adding the constructor
+     * @param type
+     * @param sectionId
+     * @param sectionName
+     * @param webPublicationDate
+     * @param webTitle
      */
-    public News(String title, String type, String sectionId, String date) {
-        Title = title;
+    public News( String type, String sectionId, String sectionName, String webPublicationDate, String webTitle) {
         Type = type;
         SectionId = sectionId;
-        Date = date;
-    }
-
-    public News(double title, String type, long sectionid, String date) {
-
+        SectionName = sectionName;
+        WebPublicationDate = webPublicationDate;
+        WebTitle = webTitle;
     }
 
     /**
      * Next add the list of  Getter; return statements
      */
 
-    public String getTitle() {
-        return Title;
+    public String getSectionName() {
+        return SectionName;
     }
 
     public String getType() {
@@ -39,8 +38,12 @@ public class News {
         return SectionId;
     }
 
-    public String getDate() {
-        return Date;
+    public String getWebPublicationDate() {
+        return WebPublicationDate;
+    }
+
+    public String getWebTitle() {
+        return WebTitle;
     }
 
     /**
@@ -50,16 +53,20 @@ public class News {
         SectionId = sectionid;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public void setWebTitle(String webTitle) {
+        WebTitle = webTitle;
     }
 
     public void setType(String type) {
         Type = type;
     }
 
-    public void setDate(String date) {
-        Date = date;
+    public void setSectionName(String sectionName) {
+        SectionName = sectionName;
+    }
+
+    public void setWebPublicationDate(String webPublicationDate) {
+        WebPublicationDate = webPublicationDate;
     }
 
     public String getUrl() {

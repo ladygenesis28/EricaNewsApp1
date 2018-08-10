@@ -29,23 +29,31 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/news_name"
+            android:id="@+id/news_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="News Title"
+            tools:text="Title:"
             android:textStyle="bold"
             android:textSize="18sp"/>
-        <TextView
-            android:id="@+id/categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="genre/category"/>
 
         <TextView
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Type"/>
+            tools:text="Type:"/>
+
+        <TextView
+            android:id="@+id/sectionid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Section ID:"/>
+
+        <TextView
+            android:id="@+id/section_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Section name:"/>
+
 
     </LinearLayout>
 

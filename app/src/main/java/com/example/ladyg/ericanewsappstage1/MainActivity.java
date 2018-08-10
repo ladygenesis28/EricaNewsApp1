@@ -26,7 +26,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String JSON_URL_NEWS = "http://content.guardianapis.com/search?q=news&api-key=b3ee86e0-e862-44ff-81e5-421bd5983e37";
+    private static final String JSON_URL_NEWS = "http://content.guardianapis.com/search?format=json&api-key=b3ee86e0-e862-44ff-81e5-421bd5983e37";
 
     /**
      * Tag for the log messages
@@ -128,9 +128,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Create a JSONObject from the JSON response string
                 JSONObject baseJsonResponse = new JSONObject(jsonResponse);
 
-                // Extract the JSONArray associated with the key called "features",
-                // which represents a list of features (or earthquakes).
-                JSONArray newsArray = baseJsonResponse.getJSONArray("features");
+                // Extract the JSONArray associated with the key called "results",
+                // which represents a list of results (or news).
+                JSONArray newsArray = baseJsonResponse.getJSONArray("results");
 
                 // For each news in the newsArray, create an {@link News} object
                 for (int i = 0; i < newsArray.length(); i++) {
@@ -141,26 +141,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // For a given news, extract the JSONObject associated with the
                     // key called "properties", which represents a list of all properties
                     // for that new.
-                    JSONObject properties = currentNews.getJSONObject("properties");
-
-                    // Extract the value for the key called "title"
-                    double title = properties.getDouble("title");
+                    JSONObject response = currentNews.getJSONObject("response");
 
                     // Extract the value for the key called "type"
-                    String type = properties.getString("type");
+                    String type = response.getString("type");
 
-                    // Extract the value for the key called "section id"
-                    long sectionid = properties.getLong("section id");
+                    // Extract the value for the key called " section id"
+                    String sectionId = response.getString("sectionId");
 
-                    // Extract the value for the key called "date"
-                    String date = properties.getString("date");
+                    // Extract the value for the key called "section name"
+                    String sectionName = response.getString("sectionName");
+
+                    // Extract the value for the key called " Web Publication Date"
+                    String webPublicationDate = response.getString("Web Publication Date");
+
+                    // Extract the value for the key called " Web Publication Date"
+                    String webTitle = response.getString("WebTitle");
 
                     // Create a new {@link News} object with the title, type, section id, and date
                     // from the JSON response.
-                    //News news1 = new News(title, type, sectionid, date);
+                    News news1 = new News(type, sectionId, sectionName, webPublicationDate, webTitle);
 
                     // Create a new {@link Event} object
-                    return new News(title, type, sectionid, date);
+                    return new News(type, sectionId, sectionName, webPublicationDate, webTitle);
 
                 }
 
