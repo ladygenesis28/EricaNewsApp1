@@ -13,9 +13,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Context mContext;
     private List<News> mData;
 
+    private List<News> newsList;
+
     public RecyclerViewAdapter(Context mContext, List<News> mData) {
         this.mContext = mContext;
         this.mData = mData;
+    }
+    public RecyclerViewAdapter (List<News> newsList) {
+        this.newsList = newsList;
     }
 
     @Override
@@ -41,11 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mData.size();
-    }
-
-    public News getItem(int position) {
-        return null;
+        return newsList.size();
     }
 
     public void clear() {
@@ -58,11 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView news_type;
         TextView news_sectionid;
         TextView news_date;
-
-        /**
-         * if I had an ImageView, it would go here also.
-         * @param itemView
-         */
 
 
         public MyViewHolder(View itemView) {

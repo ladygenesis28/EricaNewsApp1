@@ -9,11 +9,6 @@ public class News {
 
     /**
      * Adding the constructor
-     * @param type
-     * @param sectionId
-     * @param sectionName
-     * @param webPublicationDate
-     * @param webTitle
      */
     public News( String type, String sectionId, String sectionName, String webPublicationDate, String webTitle) {
         Type = type;
@@ -67,9 +62,5 @@ public class News {
 
     public void setWebPublicationDate(String webPublicationDate) {
         WebPublicationDate = webPublicationDate;
-    }
-
-    public String getUrl() {
-        return getUrl();
     }
 }

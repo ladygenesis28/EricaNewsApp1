@@ -35,8 +35,7 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.0.0'
 
-    // Recyclerview Library
-
+    // Recyclerview
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
 }

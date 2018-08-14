@@ -5,6 +5,7 @@ import android.content.Loader;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -62,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         task.execute();
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclertview_id);
+        recyclerView = findViewById(R.id.recyclertview_id);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
 
 
         // Create a new adapter that takes an empty list of news as input
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    public static List<News> fetchNewsData(String mUrl) {
+    public static List<News> fetchNewsData() {
         return null;
     }
 
@@ -108,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             // Extract relevant fields from the JSON response and create an {@link Event} object
-            News getNews = extractFeatureFromJson(jsonResponse);
+            News getNews = extractResultsFromJson(jsonResponse);
 
             // Return the {@link Event} object as the result fo the {@link TsunamiAsyncTask}
             return getNews;
         }
 
-        private News extractFeatureFromJson(String jsonResponse) {
+        private News extractResultsFromJson(String jsonResponse) {
             // If the JSON string is empty or null, then return early.
             if (TextUtils.isEmpty(jsonResponse)) {
                 return null;
@@ -130,13 +134,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 // Extract the JSONArray associated with the key called "results",
                 // which represents a list of results (or news).
-                JSONArray newsArray = baseJsonResponse.getJSONArray("results");
+                JSONArray newsResults = baseJsonResponse.getJSONArray("results");
 
                 // For each news in the newsArray, create an {@link News} object
-                for (int i = 0; i < newsArray.length(); i++) {
+                for (int i = 0; i < newsResults.length(); i++) {
 
                     // Get a single new at position i within the list of news
-                    JSONObject currentNews = newsArray.getJSONObject(i);
+                    JSONObject currentNews = newsResults.getJSONObject(i);
 
                     // For a given news, extract the JSONObject associated with the
                     // key called "properties", which represents a list of all properties
@@ -163,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     News news1 = new News(type, sectionId, sectionName, webPublicationDate, webTitle);
 
                     // Create a new {@link Event} object
-                    return new News(type, sectionId, sectionName, webPublicationDate, webTitle);
+                    return new List<News>;
 
                 }
 
