@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private RecyclerView recyclerView;
 
+    List<News> news = new ArrayList<>();
+    private News newsList;
+    private AbstractList<News> culture;
+    private AbstractList<News> food;
+    private AbstractList<News> uknews;
+    private AbstractList<News> usnews;
+    private AbstractList<News> artanddesign;
+    private AbstractList<News> education;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +62,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         // Get a reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
+        LoaderManager getLoaderManager = getLoaderManager();
 
         // Initialize the loader. Pass in the int ID constant defined above and pass in null for
         // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
         // because this activity implements the LoaderCallbacks interface).
-        loaderManager.initLoader(NEWS_LOADER_ID, null, this);
+        getLoaderManager.initLoader(NEWS_LOADER_ID, null, this);
 
         // Kick off an {@link AsyncTask} to perform the network request
         NewsAsyncTask task = new NewsAsyncTask();
@@ -87,7 +98,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
         // Clear the adapter of previous earthquake data
-        mAdapter.clear();
+        View loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.GONE);
 
     }
 
@@ -98,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     private class NewsAsyncTask extends AsyncTask<URL, Void, News> {
+        private AbstractList<News> football;
+
         @Override
         protected News doInBackground(URL... urls) {
             // Create URL object
@@ -112,10 +126,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             // Extract relevant fields from the JSON response and create an {@link Event} object
-            News getNews = extractResultsFromJson(jsonResponse);
+            List<News> = extractResultsFromJson(jsonResponse);
 
             // Return the {@link Event} object as the result fo the {@link TsunamiAsyncTask}
-            return getNews;
+            return  List<News>;
         }
 
         private News extractResultsFromJson(String jsonResponse) {
@@ -166,8 +180,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // from the JSON response.
                     News news1 = new News(type, sectionId, sectionName, webPublicationDate, webTitle);
 
-                    // Create a new {@link Event} object
-                    return new List<News>;
+                    List<News> newsList= new ArrayList<>();
+
+                    news.add((News) newsList);
+                    football.add((News) newsList);
+                    culture.add((News) newsList);
+                    food.add((News) newsList);
+                    uknews.add((News) newsList);
+                    usnews.add((News) newsList);
+                    artanddesign.add((News) newsList);
+                    education.add((News) newsList);
 
                 }
 
@@ -175,11 +197,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // If an error is thrown when executing any of the above statements in the "try" block,
                 // catch the exception here, so the app doesn't crash. Print a log message
                 // with the message from the exception.
-                Log.e("QueryUtils", "Problem parsing the news JSON results", e);
+                Log.e("MainActivity", "Problem parsing the news JSON results", e);
             }
 
             // Return the list of news
-            return null;
+            return news;
         }
 
     }
