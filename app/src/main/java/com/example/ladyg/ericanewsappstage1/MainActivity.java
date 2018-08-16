@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,12 +49,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     List<News> news = new ArrayList<>();
     private News newsList;
-    private AbstractList<News> culture;
-    private AbstractList<News> food;
-    private AbstractList<News> uknews;
-    private AbstractList<News> usnews;
-    private AbstractList<News> artanddesign;
-    private AbstractList<News> education;
+    private AbstractList<News> news_webpublicationdate;
+    private AbstractList<News> news_type;
+    private AbstractList<News> news_sectionname;
+    private AbstractList<News> news_sectionid;
+    private AbstractList<News> news_webtitle;
 
 
     @Override
@@ -182,14 +182,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                     List<News> newsList= new ArrayList<>();
 
-                    news.add((News) newsList);
-                    football.add((News) newsList);
-                    culture.add((News) newsList);
-                    food.add((News) newsList);
-                    uknews.add((News) newsList);
-                    usnews.add((News) newsList);
-                    artanddesign.add((News) newsList);
-                    education.add((News) newsList);
+                    news_webtitle.add((News) newsList);
+                    news_sectionname.add((News) newsList);
+                    news_type.add((News) newsList);
+                    news_sectionid.add((News) newsList);
+                    news_webpublicationdate.add((News) newsList);
 
                 }
 
