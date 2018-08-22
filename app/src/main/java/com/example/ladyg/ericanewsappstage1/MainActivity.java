@@ -109,33 +109,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter.clear();
     }
 
-    private class NewsAsyncTask extends AsyncTask<URL, Void, News> {
-        private AbstractList<News> football;
-
-        @Override
-        protected News doInBackground(URL... urls) {
-            // Create URL object
-            URL url = createUrl(JSON_URL_NEWS);
-
-            // Perform HTTP request to the URL and receive a JSON response back
-            String jsonResponse = "";
-            try {
-                jsonResponse = makeHttpRequest(url);
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Problem making the HTTP request.", e);
-            }
-
-            // Extract relevant fields from the JSON response and create an {@link Event} object
-            List<News> = extractResultsFromJson(jsonResponse);
-
-            // Return the {@link Event} object as the result fo the {@link TsunamiAsyncTask}
-            return  List<News>;
-        }
-
-        private News extractResultsFromJson(String jsonResponse) {
-            // If the JSON string is empty or null, then return early.
-            if (TextUtils.isEmpty(jsonResponse)) {
-                return null;
+    private News extractResultsFromJson(String jsonResponse) {
+        // If the JSON string is empty or null, then return early.
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
             }
 
             // Try to parse the JSON response string. If there's a problem with the way the JSON
@@ -180,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // from the JSON response.
                     News news1 = new News(type, sectionId, sectionName, webPublicationDate, webTitle);
 
-                    List<News> newsList= new ArrayList<>();
+                    List<News> newsList = new ArrayList<>();
 
                     news_webtitle.add((News) newsList);
                     news_sectionname.add((News) newsList);
@@ -198,73 +175,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             // Return the list of news
-            return news;
-        }
-
-    }
-
-        private String makeHttpRequest(URL url) throws IOException {
-            String jsonResponse = "";
-
-            // If the URL is null, then return early.
-            if (url == null) {
-                return jsonResponse;
-            }
-
-            HttpURLConnection urlConnection = null;
-            InputStream inputStream = null;
-            try {
-                urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
-                urlConnection.setReadTimeout(10000 /* milliseconds */);
-                urlConnection.setConnectTimeout(15000 /* milliseconds */);
-                urlConnection.connect();
-
-                // If the request was successful (response code 200),
-                // then read the input stream and parse the response.
-                if (urlConnection.getResponseCode() == 200) {
-                    inputStream = urlConnection.getInputStream();
-                    jsonResponse = readFromStream(inputStream);
-                } else {
-                    Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-                }
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
-            } finally {
-                if (urlConnection != null) {
-                    urlConnection.disconnect();
-                }
-                if (inputStream != null) {
-                    // function must handle java.io.IOException here
-                    inputStream.close();
-                }
-            }
-            return jsonResponse;
-        }
-
-        private String readFromStream(InputStream inputStream) throws IOException {
-            StringBuilder output = new StringBuilder();
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-                BufferedReader reader = new BufferedReader(inputStreamReader);
-                String line = reader.readLine();
-                while (line != null) {
-                    output.append(line);
-                    line = reader.readLine();
-                }
-            }
-            return output.toString();
-        }
-
-        private URL createUrl(String jsonUrlNews) {
-            URL url = null;
-            try {
-                url = new URL(jsonUrlNews);
-            } catch (MalformedURLException exception) {
-                Log.e(LOG_TAG, "Error with creating URL", exception);
-                return null;
-            }
-            return url;
+            return (News) news;
         }
     }
 
