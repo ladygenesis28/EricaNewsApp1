@@ -26,7 +26,7 @@ public class QueryUtils {
     private static final String JSON_URL_NEWS = "http://content.guardianapis.com/search?format=json&api-key=b3ee86e0-e862-44ff-81e5-421bd5983e37";
 
 
-    private class NewsAsyncTask extends AsyncTask<URL, Void, News> {
+    private static class NewsAsyncTask extends AsyncTask<URL, Void, News> {
         private AbstractList<News> football;
 
         @Override

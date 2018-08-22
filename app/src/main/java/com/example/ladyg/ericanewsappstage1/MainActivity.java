@@ -136,22 +136,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     // For a given news, extract the JSONObject associated with the
                     // key called "properties", which represents a list of all properties
                     // for that new.
-                    JSONObject response = currentNews.getJSONObject("response");
+                    JSONObject results = currentNews.getJSONObject("results");
 
                     // Extract the value for the key called "type"
-                    String type = response.getString("type");
+                    String type = results.getString("type");
 
                     // Extract the value for the key called " section id"
-                    String sectionId = response.getString("sectionId");
+                    String sectionId = results.getString("sectionId");
 
                     // Extract the value for the key called "section name"
-                    String sectionName = response.getString("sectionName");
+                    String sectionName = results.getString("sectionName");
 
                     // Extract the value for the key called " Web Publication Date"
-                    String webPublicationDate = response.getString("Web Publication Date");
+                    String webPublicationDate = results.getString("Web Publication Date");
 
                     // Extract the value for the key called " Web Publication Date"
-                    String webTitle = response.getString("WebTitle");
+                    String webTitle = results.getString("WebTitle");
 
                     // Create a new {@link News} object with the title, type, section id, and date
                     // from the JSON response.
