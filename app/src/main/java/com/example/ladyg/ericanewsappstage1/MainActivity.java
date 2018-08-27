@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-       // recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
+       recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
 
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-       // recyclerView.setLayoutManager(layoutManager);
+       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+       recyclerView.setLayoutManager(layoutManager);
 
 
         // Create a new adapter that takes an empty list of news as input
-       // mAdapter = new RecyclerViewAdapter(this, new ArrayList<News>());
+       mAdapter = new RecyclerViewAdapter(this, new ArrayList<News>());
 
         // Get a reference to the LoaderManager, in order to interact with loaders.
         LoaderManager getLoaderManager = getLoaderManager();
