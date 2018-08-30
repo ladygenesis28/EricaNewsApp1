@@ -28,110 +28,168 @@ public class QueryUtils {
 
     public static List<News> fetchNewsData(String requestUrl) {
 
-        // Code to fetch data
-        //Erica: unsure what code to use here
+        Log.i(LOG_TAG, "Fetch article data");
 
-        return null;
-    }
+        // Create URL object using our createUrl method
+        //should I be adding this or no
 
-    private String makeHttpRequest(URL url) throws IOException {
-        String jsonResponse = "";
+        URL url = createUrl(JSON_URL_NEWS);
 
-        // If the URL is null, then return early.
-        if (url == null) {
-            return jsonResponse;
-        }
+        // This method is converting our url String to a URL object
 
-        HttpURLConnection urlConnection = null;
-        InputStream inputStream = null;
+        URL url = createUrl(requestUrl);
+
+
+        // Perform a HTTP request on the URL to receive a JSON response back
+
+        String jsonResponse = null;
+
         try {
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
-            urlConnection.connect();
 
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
-            if (urlConnection.getResponseCode() == 200) {
-                inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);
-            } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
-            }
+            // This is where we call our makeHttpRequest method
+
+            jsonResponse = makeHttpRequest(url);
+
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-            if (inputStream != null) {
-                // function must handle java.io.IOException here
-                inputStream.close();
-            }
-        }
-        return jsonResponse;
-    }
 
-    private String readFromStream(InputStream inputStream) throws IOException {
-        StringBuilder output = new StringBuilder();
-        if (inputStream != null) {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line = reader.readLine();
-            while (line != null) {
-                output.append(line);
-                line = reader.readLine();
-            }
-        }
-        return output.toString();
-    }
+            // Here we catch any errors that might occur when making a Http request
 
-    private URL createUrl(String jsonUrlNews) {
-        URL url = null;
-        try {
-            url = new URL(jsonUrlNews);
-        } catch (MalformedURLException exception) {
-            Log.e(LOG_TAG, "Error with creating URL", exception);
-            return null;
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
+
         }
-        return url;
+
+        // Here we call our extractResultsFromJson method to parse the response we get from
+        // calling makeHttpRequest
+        //already have this method way down below. Should it be up here???
+        List<News> news = extractResponseFromJson(jsonResponse);
+
+        // Then we return the list of News that we've parsed via extractResponseFromJson
+        return news;
+
     }
+    //Is it suppose to be extractResponseFromJson or no??
 
     private static News extractResultsFromJson(String jsonResponse) {
         // If the JSON string is empty or null, then return early.
         if (TextUtils.isEmpty(jsonResponse)) {
+            // TODO: Return null should be inside the if block just above, otherwise it will always return
+            return null;
 
         }
-        return null;
-    }
+        //Should I be removing this block: line 81-131??
 
-    List<News> news = new ArrayList<>();{
+        private String makeHttpRequest (URL url) throws IOException {
+            String jsonResponse = "";
 
-        try {
-            // Parse JSON results  //Erica: are these correct?
-            JSONObject baseJsonResponse = new JSONObject(jsonResponse);
+            // If the URL is null, then return early.
+            if (url == null) {
+                return jsonResponse;
+            }
 
-            // Extract the JSONArray associated with the key called "results",
-            // which represents a list of results (or news).
-            JSONArray newsResults = baseJsonResponse.getJSONArray("results");
+            HttpURLConnection urlConnection = null;
+            InputStream inputStream = null;
+            try {
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setReadTimeout(10000 /* milliseconds */);
+                urlConnection.setConnectTimeout(15000 /* milliseconds */);
+                urlConnection.connect();
 
-            // Inside for loop at the bottom
-
-            News newsArticle = new News(title, section, date, author);
-
-            news.add(newsArticle);
-
-        } catch (JSONException e) {
-
-            // Catch error exception
-            Log.e("MainActivity", "Problem parsing the news JSON results", e);
-
+                // If the request was successful (response code 200),
+                // then read the input stream and parse the response.
+                if (urlConnection.getResponseCode() == 200) {
+                    inputStream = urlConnection.getInputStream();
+                    jsonResponse = readFromStream(inputStream);
+                } else {
+                    Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                }
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (inputStream != null) {
+                    // function must handle java.io.IOException here
+                    inputStream.close();
+                }
+            }
+            return jsonResponse;
         }
 
-        // Return the list of news
+        private String readFromStream (InputStream inputStream) throws IOException {
+            StringBuilder output = new StringBuilder();
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+                String line = reader.readLine();
+                while (line != null) {
+                    output.append(line);
+                    line = reader.readLine();
+                }
+            }
+            return output.toString();
+        }
+//should I be removing this block??
+        private URL createUrl (String jsonUrlNews){
+            URL url = null;
+            try {
+                url = new URL(jsonUrlNews);
+            } catch (MalformedURLException exception) {
+                Log.e(LOG_TAG, "Error with creating URL", exception);
+                return null;
+            }
+            return url;
+        }
 
-        return news;
+        List<News> news = new ArrayList<>();
+        {
+
+            try {
+                // Parse JSON results
+                JSONObject baseJsonResponse = new JSONObject(jsonResponse);
+
+                // TODO: This is close but there is a "response" JSONObject which comes before JSONArray "results"
+
+                // Extract the JSONArray associated with the key called "results",
+                // which represents a list of results (or news).
+                JSONObject newsResponse = baseJsonResponse.getJSONObject("response");
+                JSONArray newsResults = baseJsonResponse.getJSONArray("results");
+
+                // TODO: Add the for loop to iterate through the newsResults JSONArray
+                //Erica: what does loop mean
+
+                // Get the title, section, date and author out of the currentNews Item inside =??
+
+                // the for loop. Make sure the two lines of code below are included inside the
+
+                // for loop at the bottom. Each time the loop iterates we are creating a new
+
+                // News object and passing it the news article title, section, date and author.
+
+                // We are then adding the News object to the news list.
+
+                //Erica: I am not understanding this part. Is all this under the Todo list??
+
+                News newsArticle = new News(title, section, date, author);
+
+                news.add(newsArticle);
+
+            } catch (JSONException e) {
+
+                // Catch error exception
+                Log.e("MainActivity", "Problem parsing the news JSON results", e);
+
+            }
+
+            // Return the list of news
+
+            return news;
+        }
     }
 }
+
+
+
+
 
