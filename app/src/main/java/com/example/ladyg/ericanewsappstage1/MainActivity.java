@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String JSON_URL_NEWS = "http://content.guardianapis.com/search?format=json&api-key=b3ee86e0-e862-44ff-81e5-421bd5983e37";
+    private static final String JSON_URL_NEWS = "http://content.guardianapis.com/search?format=json&show-tags=contributor&api-key=b3ee86e0-e862-44ff-81e5-421bd5983e37";
 
     /**
      * Tag for the log messages
@@ -54,9 +54,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
-
-       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-       recyclerView.setLayoutManager(layoutManager);
+       recyclerView.setHasFixedSize(true);
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         // Create a new adapter that takes an empty list of news as input

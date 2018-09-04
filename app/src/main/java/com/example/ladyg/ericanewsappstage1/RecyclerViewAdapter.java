@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+
     private Context mContext;
     private List<News> mData;
 
@@ -26,9 +27,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view;
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        view = inflater.inflate(R.layout.news_row_item,parent,false);
+        //View view;
+        //LayoutInflater inflater = LayoutInflater.from(mContext);
+        //view = inflater.inflate(R.layout.news_row_item,parent,false);
+
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_row_item,parent,false);
 
         return new MyViewHolder(view);
     }
