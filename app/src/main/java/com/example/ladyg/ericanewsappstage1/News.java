@@ -2,20 +2,19 @@ package com.example.ladyg.ericanewsappstage1;
 
 public class News {
     private String SectionName;
-    private String Type;
-    private String SectionId;
     private String WebPublicationDate;
     private String WebTitle;
+    private String AuthorName;
 
     /**
      * Adding the constructor
      */
-    public News( String type, String sectionId, String sectionName, String webPublicationDate, String webTitle) {
-        Type = type;
-        SectionId = sectionId;
+    public News( String authorName, String sectionName, String webPublicationDate, String webTitle) {
         SectionName = sectionName;
         WebPublicationDate = webPublicationDate;
         WebTitle = webTitle;
+        AuthorName = authorName;
+
     }
 
     /**
@@ -26,11 +25,8 @@ public class News {
         return SectionName;
     }
 
-    public String getType() {
-        return Type;
-    }
-    public String getSectionId() {
-        return SectionId;
+    public String getAuthorName() {
+        return AuthorName;
     }
 
     public String getWebPublicationDate() {
@@ -44,16 +40,12 @@ public class News {
     /**
      * Then adding the list of Setter
      */
-    public void setSectionId(String sectionid) {
-        SectionId = sectionid;
+    public void setAuthorName(String authorName) {
+        AuthorName = authorName;
     }
 
     public void setWebTitle(String webTitle) {
         WebTitle = webTitle;
-    }
-
-    public void setType(String type) {
-        Type = type;
     }
 
     public void setSectionName(String sectionName) {

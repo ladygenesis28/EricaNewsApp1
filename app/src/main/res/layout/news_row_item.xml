@@ -27,16 +27,10 @@
                 tools:text="Title:" />
 
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Type:" />
-
-            <TextView
-                android:id="@+id/sectionid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Section ID:" />
+                tools:text="Author:" />
 
             <TextView
                 android:id="@+id/section_name"

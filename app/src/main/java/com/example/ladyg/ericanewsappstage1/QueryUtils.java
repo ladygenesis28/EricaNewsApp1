@@ -1,6 +1,5 @@
 package com.example.ladyg.ericanewsappstage1;
 
-import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,12 +15,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.ladyg.ericanewsappstage1.MainActivity.LOG_TAG;
-import static com.example.ladyg.ericanewsappstage1.MainActivity.fetchNewsData;
 
 public class QueryUtils {
 
@@ -80,21 +77,33 @@ public class QueryUtils {
                 // Extract the JSONArray associated with the key called "results",
                 // which represents a list of results (or news).
                 JSONObject newsResponse = baseJsonResponse.getJSONObject("response");
-                JSONArray newsResults = baseJsonResponse.getJSONArray("results");
+                // TODO: newsResults should use newsResponse object to get the JSONArray e.g
 
-                // Get the title, section, date and author out of the currentNews Item inside =??
+                JSONArray newsResults = newsResponse.getJSONArray("results");
+                //removed this, right? JSONArray newsResults = baseJsonResponse.getJSONArray("results");
 
-                // the for loop. Make sure the two lines of code below are included inside the
+                for(int i = 0; i < newsResults.length(); i++) {
 
-                // for loop at the bottom. Each time the loop iterates we are creating a new
+                    JSONObject currentNews = newsResults.getJSONObject(i);
 
-                // News object and passing it the news article title, section, date and author.
+                    JSONObject root = new JSONObject (json);
 
-                // We are then adding the News object to the news list.
+                    JSONObject response = root.getJSONObject ("response");
+                    currentNews.has ("currentPage");
+                    currentNews.has ("orderBy");
 
-                News newsArticle = new News(title, section, date, author);
+                    JSONArray results = response.getJSONArray("results");
+                    currentNews.has ("webTitle");
+                    currentNews.has ("sectionName");
+                    currentNews.has ("webPublicationDate");
+                    currentNews.has ("firstName");
+                    currentNews.has ("lastName");
 
-                news.add(newsArticle);
+
+                    News newsArticle = new News(title, section, date, author);
+
+                    news.add(newsArticle);
+                }
 
             } catch (JSONException e) {
 
@@ -172,8 +181,3 @@ public class QueryUtils {
         return url;
     }
 }
-
-
-
-
-
