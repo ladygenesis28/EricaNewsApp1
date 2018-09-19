@@ -86,17 +86,43 @@ public class QueryUtils {
 
                     JSONObject currentNews = newsResults.getJSONObject(i);
 
-                    JSONObject root = new JSONObject (json);
+                    String title = "Title Unknown";
 
-                    JSONObject response = root.getJSONObject ("response");
-                    currentNews.has ("currentPage");
-                    currentNews.has ("orderBy");
+                    if(currentNews.has("webTitle")) {
 
-                    JSONArray results = response.getJSONArray("results");
+                        title = currentNews.getString("webTitle");
+
+                    }
+
+                    String section = "Section Unknown";
+
+                    if(currentNews.has("sectionName")) {
+
+                        section = currentNews.getString("sectionName");
+
+                    }
+                    String date = "Date Unknown";
+
+                    if(currentNews.has("webPublicationDate")) {
+
+                        date = currentNews.getString("webPublicationDate");
+
+                    }
+                    String author = "Author Unknown";
+
+                    if(currentNews.has("authorName")) {
+
+                        author = currentNews.getString("authorName");
+
+                    }
                     currentNews.has ("webTitle");
+
                     currentNews.has ("sectionName");
+
                     currentNews.has ("webPublicationDate");
+
                     currentNews.has ("firstName");
+
                     currentNews.has ("lastName");
 
 
