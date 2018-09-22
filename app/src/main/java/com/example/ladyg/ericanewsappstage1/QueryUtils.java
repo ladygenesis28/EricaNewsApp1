@@ -82,6 +82,9 @@ public class QueryUtils {
                 JSONArray newsResults = newsResponse.getJSONArray("results");
                 //removed this, right? JSONArray newsResults = baseJsonResponse.getJSONArray("results");
 
+                JSONArray tags = results.getJSONArray("tags");
+                if (tags.length() == 0); JSONObject results = tags.getJSONObject(0);
+
                 for(int i = 0; i < newsResults.length(); i++) {
 
                     JSONObject currentNews = newsResults.getJSONObject(i);
@@ -115,18 +118,8 @@ public class QueryUtils {
                         author = currentNews.getString("authorName");
 
                     }
-                    currentNews.has ("webTitle");
 
-                    currentNews.has ("sectionName");
-
-                    currentNews.has ("webPublicationDate");
-
-                    currentNews.has ("firstName");
-
-                    currentNews.has ("lastName");
-
-
-                    News newsArticle = new News(title, section, date, author);
+                    News newsArticle = new News(author, section, date, title);
 
                     news.add(newsArticle);
                 }
