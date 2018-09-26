@@ -82,9 +82,6 @@ public class QueryUtils {
                 JSONArray newsResults = newsResponse.getJSONArray("results");
                 //removed this, right? JSONArray newsResults = baseJsonResponse.getJSONArray("results");
 
-                JSONArray tags = results.getJSONArray("tags");
-                if (tags.length() == 0); JSONObject results = tags.getJSONObject(0);
-
                 for(int i = 0; i < newsResults.length(); i++) {
 
                     JSONObject currentNews = newsResults.getJSONObject(i);
@@ -112,8 +109,10 @@ public class QueryUtils {
 
                     }
                     String author = "Author Unknown";
+                    JSONArray tags = currentNews.getJSONArray("tags");
 
                     if(currentNews.has("authorName")) {
+                        if (tags.length() == 1); JSONObject results = tags.getJSONObject(0);
 
                         author = currentNews.getString("authorName");
 
