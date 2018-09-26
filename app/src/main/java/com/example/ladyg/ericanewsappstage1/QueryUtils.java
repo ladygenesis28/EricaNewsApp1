@@ -110,12 +110,11 @@ public class QueryUtils {
                     }
                     String author = "Author Unknown";
                     JSONArray tags = currentNews.getJSONArray("tags");
-
-                    if(currentNews.has("authorName")) {
-                        if (tags.length() == 1); JSONObject results = tags.getJSONObject(0);
-
-                        author = currentNews.getString("authorName");
-
+                    if(tags.length() == 1) {
+                        JSONObject results = tags.getJSONObject(0);
+                        if(results.has("webTitle")) {
+                            author = results.getString("webTitle");
+                        }
                     }
 
                     News newsArticle = new News(author, section, date, title);
