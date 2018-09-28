@@ -67,10 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Initialize the loader
         getLoaderManager.initLoader(NEWS_LOADER_ID, null, this);
 
-        // Kick off an {@link AsyncTask} to perform the network request
-        NewsAsyncTask task = new NewsAsyncTask();
-        task.execute();
-
     }
 
     @Override
@@ -81,12 +77,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
-        // Clear the adapter of previous news data
-       // View loadingIndicator = findViewById(R.id.loading_indicator);
-       // loadingIndicator.setVisibility(View.GONE);
-
-
-        // Hide loading progress / indicator (did that) and add all News to adapter (don't know what you mean)
+        mAdapter.clear();
+        mAdapter = new RecyclerViewAdapter(MainActivity.this, data);
+        if (data != null && !data.isEmpty()) {
+            recyclerView.setAdapter(mAdapter);
+        }
 
     }
 
