@@ -53,13 +53,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
 
-       recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
-       recyclerView.setHasFixedSize(true);
-       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         // Create a new adapter that takes an empty list of news as input
-       mAdapter = new RecyclerViewAdapter(this, new ArrayList<News>());
+        mAdapter = new RecyclerViewAdapter(this, new ArrayList<News>());
 
         // Get a reference to the LoaderManager, in order to interact with loaders.
         LoaderManager getLoaderManager = getLoaderManager();
@@ -81,14 +81,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter = new RecyclerViewAdapter(MainActivity.this, data);
         if (data != null && !data.isEmpty()) {
             recyclerView.setAdapter(mAdapter);
+        } else {
+            "No News Found";
+
         }
 
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<News>> loader) {
-        // Loader reset, so we can clear out our existing data.
-        mAdapter.clear();
+        @Override
+        public void onLoaderReset (Loader < List < News >> loader) {
+            // Loader reset, so we can clear out our existing data.
+            mAdapter.clear();
         }
     }
+}
 
