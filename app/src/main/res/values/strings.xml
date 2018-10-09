@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Erica News App, Stage 1</string>
+    <string name="no_news">no news</string>
 </resources>

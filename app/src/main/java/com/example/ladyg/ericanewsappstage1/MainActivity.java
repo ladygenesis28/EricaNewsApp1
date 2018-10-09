@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private RecyclerView recyclerView;
 
+    /** TextView that is displayed when the list is empty */
+    private TextView mEmptyStateTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_id);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mEmptyStateTextView = (TextView) findViewById(R.id.recyclerview_id);
+        RecyclerView.setEmptyView(mEmptyStateTextView);
 
 
         // Create a new adapter that takes an empty list of news as input
@@ -77,17 +83,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
+
+        // Set empty state text to display "No news found."
+        mEmptyStateTextView.setText(R.string.no_news);
+
         mAdapter.clear();
         mAdapter = new RecyclerViewAdapter(MainActivity.this, data);
         if (data != null && !data.isEmpty()) {
             recyclerView.setAdapter(mAdapter);
-        } else {
-            "No News Found";
 
         }
 
         @Override
-        public void onLoaderReset (Loader < List < News >> loader) {
+        public void onLoaderReset(Loader < List < News >> loader) {
             // Loader reset, so we can clear out our existing data.
             mAdapter.clear();
         }
