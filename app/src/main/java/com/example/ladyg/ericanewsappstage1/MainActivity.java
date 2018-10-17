@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mEmptyStateTextView = (TextView) findViewById(R.id.recyclerview_id);
-        RecyclerView.setEmptyView(mEmptyStateTextView);
+
 
 
         // Create a new adapter that takes an empty list of news as input
@@ -84,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<News>> loader, List<News> data) {
 
-        // Set empty state text to display "No news found."
-        mEmptyStateTextView.setText(R.string.no_news);
+        // Set empty state text to display "No News found."
+        mEmptyStateTextView.setText(R.string. no_news);
 
         mAdapter.clear();
         mAdapter = new RecyclerViewAdapter(MainActivity.this, data);
@@ -93,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             recyclerView.setAdapter(mAdapter);
 
         }
+    }
 
         @Override
         public void onLoaderReset(Loader < List < News >> loader) {
@@ -100,5 +100,4 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mAdapter.clear();
         }
     }
-}
 
