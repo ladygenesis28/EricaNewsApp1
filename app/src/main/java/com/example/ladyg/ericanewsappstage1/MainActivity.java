@@ -1,7 +1,10 @@
 package com.example.ladyg.ericanewsappstage1;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,13 +59,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Initialize the loader
         getLoaderManager.initLoader(NEWS_LOADER_ID, null, this);
 
-        // Otherwise, display error
-        // First, hide loading indicator so error message will be visible
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
+        //Get a reference to the ConnectivityManager to check state of network connectivity
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        // Update empty state with no connection error message
-        mEmptyStateTextView.setText(R.string.no_internet_connection);
+        //Get details on the currently active default data network
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        //If there is a network connection, fetch data
+        if (networkInfo != null && networkInfo.isConnected()) {
+            getLoaderManager.initLoader(NEWS_LOADER_ID, null, this);
+
+        }else{
+            //display textview tell user there's not internet connection
+            // Otherwise, display error
+            // First, hide loading indicator so error message will be visible
+            View loadingIndicator = findViewById(R.id.loading_indicator);
+            loadingIndicator.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        }
     }
 
     @Override
