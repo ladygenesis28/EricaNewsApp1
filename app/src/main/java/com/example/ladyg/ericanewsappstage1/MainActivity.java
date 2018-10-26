@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mEmptyStateTextView.setText(R.string. no_news_found);
 
         mAdapter.clear();
+
         mAdapter = new RecyclerViewAdapter(MainActivity.this, data);
         if (data != null && !data.isEmpty()) {
             recyclerView.setAdapter(mAdapter);
