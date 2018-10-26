@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Get a reference to the LoaderManager, in order to interact with loaders.
         LoaderManager getLoaderManager = getLoaderManager();
 
-        // Initialize the loader
-        getLoaderManager.initLoader(NEWS_LOADER_ID, null, this);
-
         //Get a reference to the ConnectivityManager to check state of network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
